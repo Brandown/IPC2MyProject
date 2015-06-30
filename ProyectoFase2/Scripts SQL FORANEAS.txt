@@ -1,0 +1,63 @@
+USE QuetzalExpress
+go
+
+CREATE TABLE Cliente(
+IdCasilla int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+Nombres varchar(50) NOT NULL,
+Apellidos varchar(50) NOT NULL,
+Telefono int NOT NULL,
+Email int NOT NULL,
+Residencia varchar(50) NOT NULL,
+NIT int NULL,
+TCredDeb int NOT NULL,
+DPI int NOT NULL,
+Estado varchar(50) NOT NULL
+)
+
+CREATE TABLE Pedido(
+IdPedido int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+DescripcionCategoria varchar(50) NOT NULL,
+IdCasi int NOT NULL,
+Peso float NOT NULL,
+Precio float NOT NULL,
+EstadoActual varchar(50) NOT NULL,
+IdLot varchar(50) NOT NULL,
+)
+
+CREATE TABLE Empleado(
+IdEmpleado int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+Nombres varchar(50) NOT NULL,
+Apellidos varchar(50) NOT NULL,
+Telefono int NOT NULL,
+Sueldo float NOT NULL,
+Domicilio varchar(50) NOT NULL,
+Email int NOT NULL,
+Usuario varchar(50) NOT NULL,
+Contraseña varchar (50) NOT NULL
+)
+
+ALTER TABLE Pedido ADD CONSTRAINT fk_Ped_IdLo FOREIGN KEY (IdLot) REFERENCES Lote(IdLote)
+
+ALTER TABLE Casilla ADD CONSTRAINT FK_Casilla_IdClie FOREIGN KEY (IdClie) REFERENCES Cliente(IdCliente)
+
+ALTER TABLE Pedido ADD CONSTRAINT fk_pedido_IdCasi FOREIGN KEY (IdCasi) REFERENCES Casilla(IdCasilla)
+
+ALTER TABLE Pedido ADD CONSTRAINT fk_pedido_IdLot FOREIGN KEY (IdLot) REFERENCES Lote(IdLote)
+
+ALTER TABLE Paquete ADD CONSTRAINT fk_paquete_IdPedid FOREIGN KEY (IdPedid) REFERENCES Pedido(IdPedido)
+
+ALTER TABLE Paquete ADD CONSTRAINT fk_paquete_IdImpues FOREIGN KEY (IdImpues) REFERENCES CategoriaImpuesto(IdImpuesto)
+
+ALTER TABLE Lote ADD CONSTRAINT fk_paquete_IdSucursa FOREIGN KEY (IdSucursa) REFERENCES Sucursal(IdSucursal)
+
+ALTER TABLE AsignacionSedeSucursal ADD CONSTRAINT fk_asignacinSeSu_IdSe FOREIGN KEY (IdSe) REFERENCES Sede(IdSede)
+
+ALTER TABLE AsignacionSedeSucursal ADD CONSTRAINT fk_asignacinSeSu_IdSucurs FOREIGN KEY (IdSucurs) REFERENCES Sucursal(IdSucursal)
+
+ALTER TABLE AsignacionSucursalDepartamento ADD CONSTRAINT fk_asignacinSuDe_IdSucur FOREIGN KEY (IdSucur) REFERENCES Sucursal(IdSucursal)
+
+ALTER TABLE AsignacionSucursalDepartamento ADD CONSTRAINT fk_asignacinSuDe_IdDepto FOREIGN KEY (IdDepto) REFERENCES Departamento(IdDepartamento)
+
+ALTER TABLE AsignacionSucursalDepartamento ADD CONSTRAINT fk_asignacinSuDe_IdEmple FOREIGN KEY (IdEmple) REFERENCES Empleado(IdEmpleado)
+
+ALTER TABLE Factura ADD CONSTRAINT fk_Factura_IdEmpleado FOREIGN KEY (IdEmpleado) REFERENCES Empleado(IdEmpleado)

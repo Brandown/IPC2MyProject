@@ -1,0 +1,28 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterEmpleado.master.cs" Inherits="ProyectoFase2.MasterEmpleado" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 261px;
+            height: 241px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="color: #000000; background-color: #FFCC99">
+        <img alt="" class="auto-style1" src="file:///C:/Users/brandon/Pictures/logo%20USAC.JPG" /><asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
