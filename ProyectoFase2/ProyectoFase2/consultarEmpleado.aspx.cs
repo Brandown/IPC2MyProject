@@ -11,12 +11,12 @@ namespace ProyectoFase2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["tempo"] = txtConsulta.Text;
         }
 
         protected void btnConsultar_Click(object sender, EventArgs e)
         {
-            Session["tempo"] = txtConsulta.Text;
+            
         }
     }
 }

@@ -30,9 +30,9 @@
         <h2 style="width: 1014px; height: 255px; margin-left: 5px">
             <br />
 &nbsp;
-            <img alt="" class="auto-style1" src="file:///C:/Users/brandon/Desktop/TRACKING/ft-tracking1.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img alt="" class="auto-style2" src="file:///C:/Users/brandon/Desktop/TRACKING/courier3.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img alt="" class="auto-style3" src="file:///C:/Users/brandon/Desktop/TRACKING/El-Quetzal-foto-por-Thorn-Janson-via-TACA-Regional.jpg" /><br />
+            <img alt="" class="auto-style1" src="Imagenes/usuario_defecto_chico_300x300.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img alt="" class="auto-style2" src="Imagenes/descarga.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img alt="" class="auto-style3" src="Images/accent.png" /><br />
 &nbsp; A FRESHING TOOL!!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IT&#39;S SIMPLY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IT&#39;S.........&nbsp;&nbsp; QUETZAL EXPRESS!!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h2>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         

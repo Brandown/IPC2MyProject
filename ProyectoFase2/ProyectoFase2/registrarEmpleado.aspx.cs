@@ -17,7 +17,7 @@ namespace ProyectoFase2
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             Servicio1 web = new Servicio1();
-            web.insertarEmpleado(TextBox1.Text, TextBox2.Text, Convert.ToInt32(TextBox3.Text), TextBox4.Text, TextBox5.Text, Convert.ToInt32(TextBox6.Text), TextBox7.Text, TextBox8.Text, TextBox9.Text, TextBox10.Text);
+            web.insertarEmpleado(TextBox1.Text, TextBox2.Text, float.Parse(TextBox3.Text), TextBox4.Text, TextBox5.Text, Convert.ToInt32(TextBox6.Text), TextBox7.Text, TextBox8.Text, TextBox9.Text, TextBox10.Text);
             
         }
     }

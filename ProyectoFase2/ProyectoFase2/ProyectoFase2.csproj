@@ -38,6 +38,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp">
+      <HintPath>..\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -110,6 +117,8 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Account\WebForm1.aspx" />
+    <Content Include="agregarPaquete.aspx" />
     <Content Include="CargaMasiva.aspx" />
     <Content Include="ConsultaPedido.aspx" />
     <Content Include="consultarCobro.aspx" />
@@ -259,6 +268,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Layout.css" />
+    <Content Include="Loggin.aspx" />
     <Content Include="Lote.aspx" />
     <Content Include="modificarCliente.aspx" />
     <Content Include="packages.config" />
@@ -276,6 +286,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="paqueteIndividual.aspx" />
     <Content Include="principalAdmin.aspx" />
     <Content Include="principalEmpleado.aspx" />
     <Content Include="principalUsuario.aspx" />
@@ -284,6 +295,7 @@
     <Content Include="RegistrarPedido.aspx" />
     <Content Include="RegistrarPedido1.aspx" />
     <Content Include="RegistroCliente.aspx" />
+    <Content Include="ReportePaquete.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
@@ -291,17 +303,17 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Servicio1.asmx" />
     <Content Include="ViewSwitcher.ascx" />
-    <None Include="Web References\WSR\Reference.map">
+    <None Include="Web References\localhost\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\WSR\Service.disco" />
+    <None Include="Web References\localhost\Service.wsdl" />
+    <None Include="Web References\localhost\Service.disco" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\_references.js" />
     <Content Include="Site.Mobile.Master" />
-    <None Include="Web References\WSR\Service.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -310,6 +322,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="agregarPaquete.aspx.cs">
+      <DependentUpon>agregarPaquete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="agregarPaquete.aspx.designer.cs">
+      <DependentUpon>agregarPaquete.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -410,8 +436,21 @@
     <Compile Include="Director.aspx.designer.cs">
       <DependentUpon>Director.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Facturacion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Facturacion.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Loggin.aspx.cs">
+      <DependentUpon>Loggin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Loggin.aspx.designer.cs">
+      <DependentUpon>Loggin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Lote.aspx.cs">
       <DependentUpon>Lote.aspx</DependentUpon>
@@ -440,6 +479,13 @@
     </Compile>
     <Compile Include="modificarCliente.aspx.designer.cs">
       <DependentUpon>modificarCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="paqueteIndividual.aspx.cs">
+      <DependentUpon>paqueteIndividual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="paqueteIndividual.aspx.designer.cs">
+      <DependentUpon>paqueteIndividual.aspx</DependentUpon>
     </Compile>
     <Compile Include="principalAdmin.aspx.cs">
       <DependentUpon>principalAdmin.aspx</DependentUpon>
@@ -503,6 +549,43 @@
     <Compile Include="RegistroCliente.aspx.designer.cs">
       <DependentUpon>RegistroCliente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reporte1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte3.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte3.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte3_2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte3_2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporte4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reporte4.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportePaquete.aspx.cs">
+      <DependentUpon>ReportePaquete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportePaquete.aspx.designer.cs">
+      <DependentUpon>ReportePaquete.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Servicio1.asmx.cs">
       <DependentUpon>Servicio1.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -528,7 +611,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Web References\WSR\Reference.cs">
+    <Compile Include="Web References\localhost\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -548,17 +631,46 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:17280/Service.asmx">
+    <WebReferenceUrl Include="http://localhost:22966/Service.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\WSR\</RelPath>
-      <UpdateFromURL>http://localhost:17280/Service.asmx</UpdateFromURL>
+      <RelPath>Web References\localhost\</RelPath>
+      <UpdateFromURL>http://localhost:22966/Service.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>ProyectoFase2_WSR_Service</CachedSettingsPropName>
+      <CachedSettingsPropName>ProyectoFase2_localhost_Service</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Facturacion.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Facturacion.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte3.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte3_2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte3_2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte4.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reporte4.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

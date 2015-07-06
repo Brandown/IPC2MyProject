@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -16,7 +17,7 @@ namespace ProyectoFase2
     
     public class Servicio1 : System.Web.Services.WebService
     {
-        SqlConnection con = new SqlConnection("Data Source = localhost; Initial Catalog = QuetzalExpress; Integrated Security= SSPI");
+        SqlConnection con = new SqlConnection("Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI");
         SqlCommand comando;
         [WebMethod]
         public string insertarCliente(string nombre, string apellido, int telefono, string correo, string residencia, string nit, int tarjeta, int dpi)
@@ -115,10 +116,10 @@ namespace ProyectoFase2
         public string insertarEmpleado(string ape, string nom, float suel, string sucu, string dep, int tel, string dom, string correo, string usuario, string contraseña)
         {
             SqlCommand comando = new SqlCommand("insert into Empleado(Apellidos, Nombres, Sueldo, Sucursal, Departamento, Telefono, Domicilio, Email, Usuario, Contraseña)"+
-            "values(@nom, @ape, @suel, @sucu, @depa, @tele, @domi, @correo, @usu, @contra",con);
-            
+            "values(@ape, @nom, @suel, @sucu, @depa, @tele, @domi, @correo, @usu, @contra)", con);
+
+            comando.Parameters.AddWithValue("@ape", ape);
             comando.Parameters.AddWithValue("@nom",nom);
-            comando.Parameters.AddWithValue("@ape",ape);
             comando.Parameters.AddWithValue("@suel",suel);
             comando.Parameters.AddWithValue("@sucu",sucu);
             comando.Parameters.AddWithValue("@depa",dep);
@@ -127,7 +128,6 @@ namespace ProyectoFase2
             comando.Parameters.AddWithValue("@correo",correo);
             comando.Parameters.AddWithValue("@usu",usuario);
             comando.Parameters.AddWithValue("@contra",contraseña);
-
             try
             {
                  con.Open();
@@ -141,6 +141,26 @@ namespace ProyectoFase2
                 return "Error";
             }
         }
+
+
+        [WebMethod]
+        public void InsertarPaquete(int imp, int ped, string nombre, string estado, float peso, string existencia )
+        {
+            SqlCommand comando = new SqlCommand("insert into Paquete(IdImp, IdPed, Nombre, Estado, Peso, Existencia) values('" + imp + "','" + ped + "','" + nombre + "','" + estado + "','" + peso + "','" + existencia + "')", con);
+            
+            try
+            {
+                con.Open();
+                comando.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                con.Close();
+            }
+        }
+
+
 
         [WebMethod]
         public string insertarPedidoCSV(string ruta)
@@ -162,28 +182,7 @@ namespace ProyectoFase2
             }
 
         }
-    
-        [WebMethod]
-        public string insertarEmpleadoCSV(string direccion)
-        {
-            
-            SqlCommand comando = new SqlCommand("BULK INSERT Empleado FROM '" + direccion + "' WITH (FIELDTERMINATOR = ',', ROWTERMINATOR = '\n');", con);
-
-            try
-            {
-con.Open();
-                comando.ExecuteNonQuery();
-                con.Close();
-                return "Hecho";
-            }
-            catch (SqlException ex)
-            {
-              con.Close();
-                return "Error";
-            }
-
-
-        }
+  
 
         [WebMethod]
         public string consultaPedido(string numPedido)
@@ -225,18 +224,44 @@ con.Open();
 
 
         [WebMethod]
+        public Boolean loggin(string usuario, string contraseña)
+        {
+            int codigo = 0;
+            SqlConnection con = new SqlConnection("Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI");
+            con.Open();
+            SqlCommand comando = new SqlCommand(String.Format("select * from Cliente where Usuario like '%{0}%' and Contraseña like '%{1}%'",usuario,contraseña), con);
+            SqlDataReader lector = comando.ExecuteReader();
+
+            while (lector.Read())
+            {
+                codigo = Convert.ToInt32(lector["IdCasilla"]);
+            }
+            con.Close();
+            if (codigo != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
+        }
+
+        [WebMethod]
         public Boolean logear(string usuario, string contraseña)
         {
-            con.Open();
-            SqlCommand comando = new SqlCommand(String.Format("select * from Cliente where Usuario = '%{0}%' and Contraseña = '%{1}%'",usuario,contraseña),con);
-            SqlDataReader dtLector = comando.ExecuteReader();
 
             int codigo = 0;
+            SqlConnection con = new SqlConnection("Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI");
+            con.Open();
+            SqlCommand comando = new SqlCommand(String.Format("select * from Empleado where Usuario like '%{0}%' and Contraseña like '%{1}%'", usuario, contraseña), con);
+            SqlDataReader lector = comando.ExecuteReader();
 
-            while(dtLector.Read()){
-                codigo = Convert.ToInt32(dtLector["IdCasilla"]);
+            while (lector.Read())
+            {
+                codigo = Convert.ToInt32(lector["IdEmpleado"]);
             }
-
             con.Close();
             if (codigo != 0)
             {
@@ -248,82 +273,82 @@ con.Open();
             }
         }
 
-        [WebMethod]
-        public Boolean loginEmpleado(string usuario, string contraseña)
-        {
-            con.Open();
-            SqlCommand comando = new SqlCommand(String.Format("select * from Empleado where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
-            SqlDataReader dtLector = comando.ExecuteReader();
+        //[WebMethod]
+        //public Boolean loginEmpleado(string usuario, string contraseña)
+        //{
+        //    con.Open();
+        //    SqlCommand comando = new SqlCommand(String.Format("select * from Empleado where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
+        //    SqlDataReader dtLector = comando.ExecuteReader();
 
-            int codigo = 0;
+        //    int codigo = 0;
 
-            while (dtLector.Read())
-            {
-                codigo = Convert.ToInt32(dtLector["IdEmpleado"]);
-            }
+        //    while (dtLector.Read())
+        //    {
+        //        codigo = Convert.ToInt32(dtLector["IdEmpleado"]);
+        //    }
 
-            con.Close();
-            if (codigo != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    con.Close();
+        //    if (codigo != 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
      
-        [WebMethod]
-        public Boolean loginDirector(string usuario, string contraseña)
-        {
-            con.Open();
-            SqlCommand comando = new SqlCommand(String.Format("select * from Director where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
-            SqlDataReader dtLector = comando.ExecuteReader();
+        //[WebMethod]
+        //public Boolean loginDirector(string usuario, string contraseña)
+        //{
+        //    con.Open();
+        //    SqlCommand comando = new SqlCommand(String.Format("select * from Director where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
+        //    SqlDataReader dtLector = comando.ExecuteReader();
 
-            int codigo = 0;
+        //    int codigo = 0;
 
-            while (dtLector.Read())
-            {
-                codigo = Convert.ToInt32(dtLector["IdDirector"]);
-            }
+        //    while (dtLector.Read())
+        //    {
+        //        codigo = Convert.ToInt32(dtLector["IdDirector"]);
+        //    }
 
-            con.Close();
-            if (codigo != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        //    con.Close();
+        //    if (codigo != 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
 
-        }
+        //}
 
-        [WebMethod]
-        public Boolean loginAdmin(string usuario, string contraseña)
-        {
-            con.Open();
-            SqlCommand comando = new SqlCommand(String.Format("select * from Administrador where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
-            SqlDataReader dtLector = comando.ExecuteReader();
+        //[WebMethod]
+        //public Boolean loginAdmin(string usuario, string contraseña)
+        //{
+        //    con.Open();
+        //    SqlCommand comando = new SqlCommand(String.Format("select * from Administrador where Usuario = '%{0}%' and Contraseña = '%{1}%'", usuario, contraseña), con);
+        //    SqlDataReader dtLector = comando.ExecuteReader();
 
-            int codigo = 0;
+        //    int codigo = 0;
 
-            while (dtLector.Read())
-            {
-                codigo = Convert.ToInt32(dtLector["IdAdministrador"]);
-            }
+        //    while (dtLector.Read())
+        //    {
+        //        codigo = Convert.ToInt32(dtLector["IdAdministrador"]);
+        //    }
 
-            con.Close();
-            if (codigo != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        //    con.Close();
+        //    if (codigo != 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
 
-        }
+        //}
 
         [WebMethod]
         public string modificarCliente(int casilla, string nombre, string apellido, string residencia, int telefono, int tarjeta)
@@ -394,5 +419,297 @@ con.Open();
                 return "error";
             }
         }
+
+
+        [WebMethod]
+        public string cargarImagen(string direccion)
+        {
+            
+
+            return "exito";
+        }
+
+
+        [WebMethod]
+        public void AgregarFoto(string foto, int paquete)
+        {
+            string cadena = @"Data source=localhost;Initial catalog=QuetzalExp;Trusted_Connection=Yes;";
+
+            SqlConnection con = new SqlConnection(cadena);
+            con.Open();
+            SqlCommand comando = new SqlCommand(String.Format("update Paquete set Estado =1, Foto= '" + foto + "' where IdPaquete like '%{0}%'", paquete), con);
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error", e);
+            }
+
+            con.Close();
+
+        }
+        [WebMethod]
+        public void AgregarPrecio(float precio, int paquete)
+        {
+            string enlace = @"Data source= localhost;Initial catalog=QuetzalExp;Trusted_Connection=Yes;";
+
+            SqlConnection conectar = new SqlConnection(enlace);
+            conectar.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("update Paquete set Estado =2, Precio= " + precio + " where IdPaquete like '%{0}%'", paquete), conectar);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error", e);
+            }
+
+            conectar.Close();
+
+        }
+
+        [WebMethod]
+        public void estadoFinal(int estado)
+        {
+            SqlCommand comando = new SqlCommand("Update Paquete set estado = 3 where IdPaquete ='"+estado+"' ",con);
+            try
+            {
+                con.Open();
+                comando.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                con.Close();
+                throw new Exception("Error al insertar el estado", ex);
+            }
+        }
+
+
+
+        [WebMethod]
+        public int getcodigo(string usuario, string contraseña)
+        {
+            int codigo = 0;
+
+            string enlace = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI;";
+            SqlConnection conectar = new SqlConnection(enlace);
+            conectar.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("Select * from Cliente where Usuario like '%{0}%' and Contraseña like '%{1}%'", usuario, contraseña), conectar);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                codigo = Convert.ToInt32(reader["IdCasilla"]);
+            }
+            conectar.Close();
+            return codigo;
+        }
+
+
+
+        [WebMethod]
+        public int getcodigoempleado(string usuario, string contraseña)
+        {
+            int codigo = 0;
+
+            string enlace = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI;";
+            SqlConnection conectar = new SqlConnection(enlace);
+            conectar.Open();
+            SqlCommand cmd = new SqlCommand(String.Format("Select * from Empleado where Usuario like '%{0}%' and Contraseña like '%{1}%'", usuario, contraseña), conectar);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                codigo = Convert.ToInt32(reader["IdEmpleado"]);
+            }
+            conectar.Close();
+            return codigo;
+        }
+
+
+
+
+        [WebMethod]
+        public void InsertarCSVImpuesto(string ruta)
+        {
+            Boolean b = true;
+            string linea = "";
+            char[] limita = { ',' };
+            string[] registro;
+            string[] columna;
+            StreamReader lector = new StreamReader(ruta);
+            List<string> lista = new List<string>();
+            while (!lector.EndOfStream)
+            {
+                linea = lector.ReadLine();
+                if (b)
+                {
+                    columna = linea.Split(limita);
+                    b = false;
+                }
+                else
+                {
+                    registro = linea.Split(limita);
+                    string sueldo = registro[2];
+                    double suel = Convert.ToDouble(sueldo);
+                    string cad = "insert into CategoriaImpuesto(NombreImpuesto,Porcentaje) values('" + registro[0] + "','" + registro[1] + "')";
+                    string conectar = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI";
+                    SqlConnection con = new SqlConnection(conectar);
+                    con.Open();
+                    SqlCommand comando = new SqlCommand(cad, con);
+
+                    try
+                    {
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw new Exception("pato!!");
+                    }
+
+                    con.Close();
+                }
+            }
+        }
+
+
+        [WebMethod]
+        public void InsertarCSVEmpleado(string ruta)
+        {
+            Boolean b = true;
+            string linea = "";
+            char[] limita = { ',' };
+            string[] registro;
+            string[] columna;
+            StreamReader lector = new StreamReader(ruta);
+            List<string> lista = new List<string>();
+            while (!lector.EndOfStream)
+            {
+                linea = lector.ReadLine();
+                if (b)
+                {
+                    columna = linea.Split(limita);
+                    b = false;
+                }
+                else
+                {
+                    registro = linea.Split(limita);
+                    string sueldo = registro[2];
+                    double suel = Convert.ToDouble(sueldo);
+                    string cad = "insert into Empleado(Apellidos,Nombres,Sueldo,Sucursal,Departamento,Usuario,Contraseña) values('" + registro[0] + "','" + registro[1] + "','" + suel + "','" + registro[3] + "','" + registro[4] + "','" + registro[0] + "','" + registro[1] + "')";
+                    string conectar = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI";
+                    SqlConnection con = new SqlConnection(conectar);
+                    con.Open();
+                    SqlCommand comando = new SqlCommand(cad,con);
+
+                    try
+                    {
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw new Exception("pato!!");
+                    }
+
+                    con.Close();
+                }
+            }
+            
+        }
+
+
+        [WebMethod]
+        public void InsertarCSVProducto(string ruta)
+        {
+            Boolean b = true;
+            string linea = "";
+            char[] limita = { ',' };
+            string[] registro;
+            string[] columna;
+            StreamReader lector = new StreamReader(ruta);
+            List<string> lista = new List<string>();
+            while (!lector.EndOfStream)
+            {
+                linea = lector.ReadLine();
+                if (b)
+                {
+                    columna = linea.Split(limita);
+                    b = false;
+                }
+                else
+                {
+                    registro = linea.Split(limita);
+                    string sueldo = registro[2];
+                    double suel = Convert.ToDouble(sueldo);
+                    string cad = "insert into Pedido(DescripcionCategoria, IdCasi, Peso, Precio) values('" + registro[0] + "','" + registro[1] + "','" + registro[2] + "','" + registro[3] + "')";
+                    string conectar = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI";
+                    SqlConnection con = new SqlConnection(conectar);
+                    con.Open();
+                    SqlCommand comando = new SqlCommand(cad, con);
+
+                    try
+                    {
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw new Exception("pato!!");
+                    }
+
+                    con.Close();
+                }
+            }
+        }
+
+
+        [WebMethod]
+        public void InsertarCSVBodega(string ruta)
+        {
+            Boolean b = true;
+            string linea = "";
+            char[] limita = { ',' };
+            string[] registro;
+            string[] columna;
+            StreamReader lector = new StreamReader(ruta);
+            List<string> lista = new List<string>();
+            while (!lector.EndOfStream)
+            {
+                linea = lector.ReadLine();
+                if (b)
+                {
+                    columna = linea.Split(limita);
+                    b = false;
+                }
+                else
+                {
+                    registro = linea.Split(limita);
+                    string sueldo = registro[2];
+                    double suel = Convert.ToDouble(sueldo);
+                    string cad = "insert into Bodega(IdLotes, Categoria, IdCasilla, Peso, Precio) values('" + registro[0] + "','" + registro[1] + "','" + registro[2] + "','" + registro[3] + "','" + registro[4] + "')";
+                    string conectar = "Data Source = localhost; Initial Catalog = QuetzalExp; Integrated Security= SSPI";
+                    SqlConnection con = new SqlConnection(conectar);
+                    con.Open();
+                    SqlCommand comando = new SqlCommand(cad, con);
+
+                    try
+                    {
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw new Exception("pato!!");
+                    }
+
+                    con.Close();
+                }
+            }
+        }
+
     }
 }

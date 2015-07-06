@@ -30,3 +30,5 @@ c:\users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFas
 c:\users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFase2\bin\es\Microsoft.AspNet.FriendlyUrls.resources.dll
 c:\users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFase2\obj\Debug\ProyectoFase2.dll
 c:\users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFase2\obj\Debug\ProyectoFase2.pdb
+C:\Users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFase2\bin\itextsharp.dll
+C:\Users\brandon\documents\visual studio 2013\Projects\ProyectoFase2\ProyectoFase2\bin\itextsharp.xml

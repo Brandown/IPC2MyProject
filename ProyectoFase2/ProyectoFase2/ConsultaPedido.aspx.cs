@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace ProyectoFase2
 {
@@ -17,12 +19,20 @@ namespace ProyectoFase2
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Session["Temporal"] = txtPedido.Text;
+            Session["temporal"] = txtPedido.Text;
         }
 
         protected void txtPedido_TextChanged(object sender, EventArgs e)
         {
 
         }
-    }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
 }
+
+
+    }

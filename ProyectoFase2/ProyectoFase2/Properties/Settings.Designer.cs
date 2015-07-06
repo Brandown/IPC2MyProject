@@ -26,10 +26,10 @@ namespace ProyectoFase2.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:17280/Service.asmx")]
-        public string ProyectoFase2_WSR_Service {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:22966/Service.asmx")]
+        public string ProyectoFase2_localhost_Service {
             get {
-                return ((string)(this["ProyectoFase2_WSR_Service"]));
+                return ((string)(this["ProyectoFase2_localhost_Service"]));
             }
         }
     }

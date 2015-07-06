@@ -7,7 +7,7 @@
     <asp:TextBox ID="txtUsuario" runat="server"></asp:TextBox>
     <br />
     CONTRASEÑA&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtcontra" runat="server"></asp:TextBox>
     <br />
     <br />
     <asp:Button ID="btnIngresar" runat="server" OnClick="btnIngresar_Click" Text="INGRESAR" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,7 +20,7 @@ namespace ProyectoFase2
             Servicio1 nuevo = new Servicio1();
             FileUpload2.SaveAs(MapPath(FileUpload2.FileName));
             string temp = MapPath(FileUpload2.FileName);
-            nuevo.cargarImpuestos(temp);
+            nuevo.InsertarCSVImpuesto(temp);
         }
 
         protected void btnProductos_Click(object sender, EventArgs e)
@@ -27,15 +28,16 @@ namespace ProyectoFase2
             Servicio1 nue = new Servicio1();
             FileUpload1.SaveAs(MapPath(FileUpload1.FileName));
             string tempo = MapPath(FileUpload1.FileName);
-            nue.insertarPedidoCSV(tempo);
+            
         }
 
         protected void btnEmpleado_Click(object sender, EventArgs e)
         {
-            Servicio1 nuevito = new Servicio1();
+            Servicio1 servi = new Servicio1();
             FileUpload3.SaveAs(MapPath(FileUpload3.FileName));
-            string temp = MapPath(FileUpload3.FileName);
-            nuevito.cargarImpuestos(temp);
+            string var = MapPath(FileUpload3.FileName);
+            servi.InsertarCSVEmpleado(var);
+
         }
     }
 }
